@@ -7,10 +7,14 @@ import Gallery from './components/Gallery';
 import Testimonials from './components/Testimonials';
 import Hours from './components/Hours';
 import Footer from './components/Footer';
+import CustomCursor from './components/CustomCursor';
+
+import { ReactLenis } from 'lenis/react';
 
 function App() {
   return (
-    <>
+    <ReactLenis root>
+      <CustomCursor />
       <Navbar />
       <main>
         <Hero />
@@ -22,7 +26,7 @@ function App() {
         <Hours />
       </main>
       <Footer />
-    </>
+    </ReactLenis>
   );
 }
 

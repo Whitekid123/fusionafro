@@ -1,67 +1,74 @@
-import { UtensilsCrossed, ShoppingBag, PartyPopper } from 'lucide-react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
-
-const services = [
-  { icon: UtensilsCrossed, label: 'Dine In', desc: 'An immersive dining experience' },
-  { icon: ShoppingBag, label: 'Take Away', desc: 'Your favourites, ready to go' },
-  { icon: PartyPopper, label: 'Catering', desc: 'Events of any size' },
-];
+import { motion } from 'framer-motion';
 
 export default function About() {
-  const ref = useScrollAnimation();
-
   return (
-    <section id="about" className="py-24 md:py-32 bg-brand-dark" ref={ref}>
+    <section id="about" className="bg-brand-dark py-32 md:py-48 overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          {/* Text Side */}
-          <div>
-            <p className="animate-on-scroll text-brand-green font-semibold uppercase tracking-[0.2em] text-sm mb-4">
-              Our Story
-            </p>
-            <h2 className="animate-on-scroll font-heading text-4xl md:text-5xl text-white mb-6 leading-tight">
-              Where Africa Meets{' '}
-              <span className="text-brand-green">the Caribbean</span>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          
+          {/* Text Side - Clean and Legible */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="order-2 lg:order-1"
+          >
+            <h2 className="font-heading text-5xl md:text-7xl leading-tight text-white mb-10 uppercase tracking-tight">
+              Our <span className="text-brand-green">Story</span>
             </h2>
-            <div className="animate-on-scroll section-divider mb-8" />
-            <p className="animate-on-scroll text-brand-text-muted text-lg leading-relaxed mb-6">
+            
+            <p className="text-brand-text-muted text-lg md:text-xl leading-relaxed mb-8">
               At Fusion Afro, we believe food is more than a meal — it's a journey.
               Our kitchen blends the bold, soulful flavours of West Africa with the vibrant
               spice and rhythm of the Caribbean to create dishes that nourish both body and spirit.
             </p>
-            <p className="animate-on-scroll text-brand-text-muted text-lg leading-relaxed mb-10">
+            <p className="text-brand-text-muted text-lg md:text-xl leading-relaxed mb-12">
               Every recipe is rooted in tradition, perfected through passion, and served with
               the warmth of home. From the smoky heat of our jollof rice to the tender pull of
               our jerk chicken, each plate tells a story of heritage and pride.
             </p>
 
-            {/* Services */}
-            <div className="stagger-children grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {services.map(({ icon: Icon, label, desc }) => (
-                <div
-                  key={label}
-                  className="animate-on-scroll glass rounded-xl p-5 text-center hover:border-brand-green/30 transition-colors duration-300"
-                >
-                  <Icon className="w-7 h-7 text-brand-green mx-auto mb-3" />
-                  <p className="text-white font-semibold text-sm mb-1">{label}</p>
-                  <p className="text-brand-text-muted text-xs">{desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+            <a
+              href="#menu"
+              className="inline-block border-b border-brand-green text-brand-green font-bold text-sm uppercase tracking-[0.2em] pb-2 hover:text-white hover:border-white transition-colors"
+            >
+              Discover Our Roots
+            </a>
+          </motion.div>
 
-          {/* Image Side */}
-          <div className="animate-on-scroll slide-right relative">
-            <div className="rounded-2xl overflow-hidden shadow-2xl">
+          {/* Image Grid Side - Structured and Elegant */}
+          <div className="order-1 lg:order-2 grid grid-cols-2 gap-6 relative">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="w-full h-[300px] md:h-[500px]"
+            >
               <img
                 src="/about-ambiance.png"
                 alt="Warm interior of Fusion Afro restaurant"
-                className="w-full h-[500px] object-cover hover:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
               />
-            </div>
-            {/* Accent Border */}
-            <div className="absolute -bottom-4 -right-4 w-full h-full rounded-2xl border-2 border-brand-green/20 -z-10" />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-full h-[300px] md:h-[500px] mt-12 md:mt-24"
+            >
+              <img
+                src="/jollof-rice.png"
+                alt="Jollof rice"
+                className="w-full h-full object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
+              />
+            </motion.div>
           </div>
+
         </div>
       </div>
     </section>

@@ -1,70 +1,85 @@
 import { useState } from 'react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
-import { menuCategories } from '../data/menu';
+import { motion, AnimatePresence } from 'framer-motion';
+import { menuCategories, menuItems } from '../data/menu';
 
-export default function MenuSection() {
-  const [activeTab, setActiveTab] = useState('starters');
-  const ref = useScrollAnimation();
+export default function Menu() {
+  const [activeCategory, setActiveCategory] = useState(menuCategories[0].id);
 
-  const activeCategory = menuCategories.find((c) => c.id === activeTab)!;
+  const filteredItems = menuItems.filter(item => item.categoryId === activeCategory);
 
   return (
-    <section id="menu" className="py-24 md:py-32 bg-brand-charcoal" ref={ref}>
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <p className="animate-on-scroll text-brand-green font-semibold uppercase tracking-[0.2em] text-sm mb-4">
+    <section id="menu" className="py-32 md:py-48 bg-brand-charcoal relative">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-brand-green font-semibold uppercase tracking-[0.4em] text-xs mb-6"
+          >
             Our Menu
-          </p>
-          <h2 className="animate-on-scroll font-heading text-4xl md:text-5xl text-white mb-6">
-            A Feast of <span className="text-brand-green">Flavours</span>
-          </h2>
-          <div className="animate-on-scroll section-divider mx-auto mb-6" />
-          <p className="animate-on-scroll text-brand-text-muted text-lg max-w-2xl mx-auto">
-            From bold starters to soul-warming mains, every dish is crafted with
-            authentic spices and the freshest ingredients.
-          </p>
+          </motion.p>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="font-heading text-5xl md:text-7xl leading-tight text-white mb-6 uppercase tracking-tight"
+          >
+            A Feast of Flavours
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-brand-text-muted text-lg"
+          >
+            Crafted with authentic spices and the freshest ingredients.
+          </motion.p>
         </div>
 
-        {/* Tabs */}
-        <div className="animate-on-scroll flex flex-wrap justify-center gap-2 mb-12">
-          {menuCategories.map((cat) => (
+        {/* Categories Tab */}
+        <div className="flex flex-wrap justify-center gap-4 mb-16">
+          {menuCategories.map((category) => (
             <button
-              key={cat.id}
-              type="button"
-              onClick={() => setActiveTab(cat.id)}
-              className={`px-5 py-2.5 rounded-full text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${
-                activeTab === cat.id
-                  ? 'bg-brand-green text-brand-dark shadow-lg shadow-brand-green/25'
-                  : 'bg-brand-gray text-brand-text-muted hover:text-white hover:bg-brand-gray-light'
+              key={category.id}
+              onClick={() => setActiveCategory(category.id)}
+              className={`relative px-8 py-3 text-sm font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${
+                activeCategory === category.id
+                  ? 'text-brand-dark'
+                  : 'text-white hover:text-brand-green'
               }`}
             >
-              {cat.label}
+              <span className="relative z-10">{category.name}</span>
+              {activeCategory === category.id && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute inset-0 bg-brand-green rounded-full"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                />
+              )}
             </button>
           ))}
         </div>
 
-        {/* Menu Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 stagger-children">
-          {activeCategory.items.map((item) => (
-            <div
-              key={item.name}
-              className="animate-on-scroll is-visible glass rounded-xl p-6 hover:border-brand-green/30 hover:-translate-y-1 transition-all duration-300 group"
-            >
-              <div className="flex justify-between items-start gap-4 mb-3">
-                <h3 className="font-heading text-xl text-white group-hover:text-brand-green transition-colors duration-300">
-                  {item.name}
-                </h3>
-                <span className="text-brand-green font-bold text-lg whitespace-nowrap">
-                  {item.price}
-                </span>
+        {/* Menu Items List */}
+        <div className="max-w-4xl mx-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0, y: 20 }}
+                  <p className="text-brand-text-muted text-base md:text-lg max-w-xl">
+                    {item.description}
+                  </p>
+                )}
               </div>
-              {item.description && (
-                <p className="text-brand-text-muted text-sm leading-relaxed">
-                  {item.description}
-                </p>
-              )}
-            </div>
+              <span className="text-brand-green font-heading text-2xl md:text-4xl whitespace-nowrap pointer-events-none">
+                {item.price}
+              </span>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { motion } from 'framer-motion';
 
 const galleryImages = [
   { src: '/jollof-rice.png', alt: 'Jollof rice with grilled chicken' },
@@ -8,28 +8,41 @@ const galleryImages = [
 ];
 
 export default function Gallery() {
-  const ref = useScrollAnimation();
-
   return (
-    <section className="py-24 md:py-32 bg-brand-dark" ref={ref}>
+    <section className="py-24 md:py-32 bg-brand-charcoal relative">
       <div className="max-w-7xl mx-auto px-6">
+        
         {/* Header */}
-        <div className="text-center mb-16">
-          <p className="animate-on-scroll text-brand-green font-semibold uppercase tracking-[0.2em] text-sm mb-4">
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-brand-green font-semibold uppercase tracking-[0.4em] text-xs mb-6"
+          >
             Gallery
-          </p>
-          <h2 className="animate-on-scroll font-heading text-4xl md:text-5xl text-white mb-6">
+          </motion.p>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="font-heading text-5xl md:text-7xl leading-tight text-white uppercase tracking-tight"
+          >
             A Visual <span className="text-brand-green">Taste</span>
-          </h2>
-          <div className="animate-on-scroll section-divider mx-auto" />
+          </motion.h2>
         </div>
 
         {/* Gallery Grid */}
-        <div className="stagger-children grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {galleryImages.map((img, i) => (
-            <div
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.6 }}
               key={img.alt}
-              className={`animate-on-scroll scale-in rounded-xl overflow-hidden group cursor-pointer ${
+              className={`rounded-xl overflow-hidden group cursor-pointer ${
                 i === 0 ? 'md:col-span-2 md:row-span-2' : ''
               }`}
             >
@@ -40,7 +53,7 @@ export default function Gallery() {
                   i === 0 ? 'h-64 md:h-full' : 'h-48 md:h-64'
                 }`}
               />
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -39,6 +39,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media (min-width: 768px) {
+  body, a, button {
+    cursor: none !important;
+  }
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
 }
@@ -139,4 +145,16 @@ h1, h2, h3, h4, h5, h6 {
   height: 3px;
   background: linear-gradient(90deg, var(--color-brand-green), var(--color-brand-red));
   border-radius: 2px;
+}
+
+/* ── Marquee Animation ── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  display: flex;
+  width: max-content;
 }
