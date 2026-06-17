@@ -25,7 +25,7 @@ export default function Testimonials() {
           What They Say
         </motion.p>
 
-        <div className="max-w-4xl mx-auto relative h-[400px] md:h-[300px]">
+        <div className="max-w-4xl mx-auto relative h-[500px] md:h-[300px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}

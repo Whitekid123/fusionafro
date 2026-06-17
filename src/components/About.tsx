@@ -8,9 +8,9 @@ export default function About() {
     offset: ["start end", "end start"]
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const y2 = useTransform(scrollYProgress, [0, 1], ["20%", "-50%"]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 1.2]);
+  const y1 = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const y2 = useTransform(scrollYProgress, [0, 1], ["5%", "-15%"]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 1.05]);
 
   return (
     <section id="about" ref={containerRef} className="bg-brand-dark py-32 md:py-48 overflow-hidden relative">

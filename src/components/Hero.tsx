@@ -15,7 +15,7 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.2]);
 
   const textVariants: any = {
-    hidden: { y: '120%', opacity: 0, rotateZ: 8, scale: 0.9 },
+    hidden: { y: '120%', opacity: 0, rotateZ: 4, scale: 0.95 },
     visible: { 
       y: 0, 
       opacity: 1, 
@@ -57,7 +57,7 @@ export default function Hero() {
           className="flex flex-col mb-12"
         >
           {/* Tagline */}
-          <div className="overflow-hidden mb-6 ml-2">
+          <div className="mb-6 ml-2">
             <motion.p 
               variants={textVariants}
               className="text-brand-green font-semibold uppercase tracking-[0.4em] text-xs md:text-sm"
@@ -66,7 +66,7 @@ export default function Hero() {
             </motion.p>
           </div>
 
-          <div className="overflow-hidden">
+          <div>
             <motion.h1 
               variants={textVariants}
               className="font-heading text-[20vw] md:text-[14vw] leading-[0.85] text-brand-cream uppercase tracking-tighter"
@@ -74,7 +74,7 @@ export default function Hero() {
               Fusion
             </motion.h1>
           </div>
-          <div className="overflow-hidden md:ml-[10vw]">
+          <div className="md:ml-[10vw]">
             <motion.h1 
               variants={textVariants}
               className="font-heading text-[20vw] md:text-[14vw] leading-[0.85] text-brand-green uppercase tracking-tighter"
@@ -82,7 +82,7 @@ export default function Hero() {
               Afro
             </motion.h1>
           </div>
-          <div className="overflow-hidden md:ml-[5vw] mt-4">
+          <div className="md:ml-[5vw] mt-4">
             <motion.h2 
               variants={textVariants}
               className="font-heading text-[8vw] md:text-[4vw] leading-[1.1] text-brand-cream/80 italic"
