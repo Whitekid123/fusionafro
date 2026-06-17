@@ -71,16 +71,36 @@ export default function Menu() {
             <motion.div
               key={activeCategory}
               initial={{ opacity: 0, y: 20 }}
-                  <p className="text-brand-text-muted text-base md:text-lg max-w-xl">
-                    {item.description}
-                  </p>
-                )}
-              </div>
-              <span className="text-brand-green font-heading text-2xl md:text-4xl whitespace-nowrap pointer-events-none">
-                {item.price}
-              </span>
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="grid gap-10"
+            >
+              {filteredItems.map((item, index) => (
+                <motion.div 
+                  key={item.id} 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-white/5 pb-8 group"
+                >
+                  <div className="flex-1 pr-8">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-brand-green transition-colors">
+                      {item.name}
+                    </h3>
+                    <p className="text-brand-text-muted text-base leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                  <div className="mt-4 sm:mt-0 whitespace-nowrap">
+                    <span className="font-heading text-2xl text-brand-green">
+                      ${item.price.toFixed(2)}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
             </motion.div>
-          ))}
+          </AnimatePresence>
         </div>
       </div>
     </section>
