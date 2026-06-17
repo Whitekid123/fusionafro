@@ -43,28 +43,34 @@ export default function Menu() {
         </div>
 
         {/* Categories Tab */}
-        <div className="flex flex-wrap justify-center gap-4 mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="flex flex-wrap justify-center gap-4 md:gap-8 mb-20 border-b border-white/10 pb-4"
+        >
           {menuCategories.map((category) => (
             <button
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
-              className={`relative px-8 py-3 text-sm font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${
+              className={`relative px-4 py-2 text-xs md:text-sm font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${
                 activeCategory === category.id
-                  ? 'text-brand-dark'
-                  : 'text-white hover:text-brand-green'
+                  ? 'text-brand-green'
+                  : 'text-brand-text-muted hover:text-white'
               }`}
             >
               <span className="relative z-10">{category.name}</span>
               {activeCategory === category.id && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute inset-0 bg-brand-green rounded-full"
+                  className="absolute bottom-[-17px] left-0 right-0 h-[2px] bg-brand-green"
                   transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                 />
               )}
             </button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Menu Items List */}
         <div className="max-w-4xl mx-auto">

@@ -48,9 +48,10 @@ export default function Navbar() {
           ))}
           <a
             href="#menu"
-            className="ml-2 px-6 py-2.5 bg-brand-green text-brand-dark font-semibold text-sm rounded-full hover:bg-brand-green-dark transition-colors duration-300 uppercase tracking-wider"
+            className="ml-2 relative overflow-hidden group px-6 py-2 border border-brand-green text-brand-green font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300"
           >
-            Order Now
+            <span className="relative z-10 group-hover:text-brand-dark transition-colors duration-300">Order Now</span>
+            <div className="absolute inset-0 bg-brand-green scale-y-0 origin-bottom group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
           </a>
         </nav>
 
@@ -96,9 +97,10 @@ export default function Navbar() {
         <a
           href="#menu"
           onClick={() => setMobileOpen(false)}
-          className="mt-4 px-8 py-3 bg-brand-green text-brand-dark font-semibold rounded-full text-lg hover:bg-brand-green-dark transition-colors"
+          className="mt-4 relative overflow-hidden group px-10 py-4 border border-brand-green text-brand-green font-bold text-sm uppercase tracking-[0.2em] transition-all duration-300"
         >
-          Order Now
+          <span className="relative z-10 group-hover:text-brand-dark transition-colors duration-300">Order Now</span>
+          <div className="absolute inset-0 bg-brand-green scale-y-0 origin-bottom group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
         </a>
       </div>
     </header>

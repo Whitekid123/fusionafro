@@ -104,17 +104,17 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row items-center gap-6 w-full md:w-auto">
             <a
               href="#menu"
-              className="relative overflow-hidden group w-full sm:w-auto text-center px-10 py-5 border border-brand-green text-brand-green font-bold text-xs uppercase tracking-[0.2em] rounded-full transition-all duration-300"
+              className="relative overflow-hidden group w-full sm:w-auto text-center px-10 py-4 border border-brand-green text-brand-green font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300"
             >
               <span className="relative z-10 group-hover:text-brand-dark transition-colors duration-300">Explore Menu</span>
-              <div className="absolute inset-0 bg-brand-green translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out z-0" />
+              <div className="absolute inset-0 bg-brand-green scale-y-0 origin-bottom group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
             </a>
             <a
               href="#catering"
-              className="relative overflow-hidden group w-full sm:w-auto text-center px-10 py-5 border border-white/20 text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full transition-all duration-300 hover:border-brand-red"
+              className="relative overflow-hidden group w-full sm:w-auto text-center px-10 py-4 border border-white/20 text-white font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 hover:border-brand-red"
             >
               <span className="relative z-10 group-hover:text-brand-red transition-colors duration-300">Book Catering</span>
-              <div className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out z-0" />
+              <div className="absolute inset-0 bg-white/5 scale-y-0 origin-bottom group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
             </a>
           </div>
         </motion.div>
