@@ -60,7 +60,7 @@ export default function Menu() {
                   : 'text-brand-text-muted hover:text-white'
               }`}
             >
-              <span className="relative z-10">{category.name}</span>
+              <span className="relative z-10">{category.label}</span>
               {activeCategory === category.id && (
                 <motion.div
                   layoutId="activeTab"
