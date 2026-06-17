@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { menuCategories, menuItems } from '../data/menu';
+import { menuCategories } from '../data/menu';
 
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState(menuCategories[0].id);
 
-  const filteredItems = menuItems.filter(item => item.categoryId === activeCategory);
+  const activeCategoryData = menuCategories.find(c => c.id === activeCategory);
+  const filteredItems = activeCategoryData ? activeCategoryData.items : [];
 
   return (
     <section id="menu" className="py-32 md:py-48 bg-brand-charcoal relative">
@@ -78,7 +79,7 @@ export default function Menu() {
             >
               {filteredItems.map((item, index) => (
                 <motion.div 
-                  key={item.id} 
+                  key={item.name} 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
@@ -94,7 +95,7 @@ export default function Menu() {
                   </div>
                   <div className="mt-4 sm:mt-0 whitespace-nowrap">
                     <span className="font-heading text-2xl text-brand-green">
-                      ${item.price.toFixed(2)}
+                      {item.price}
                     </span>
                   </div>
                 </motion.div>

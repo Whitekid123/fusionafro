@@ -14,7 +14,7 @@ export default function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], ['0vh', '50vh']);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.2]);
 
-  const textVariants = {
+  const textVariants: any = {
     hidden: { y: '100%', opacity: 0 },
     visible: { 
       y: 0, 
