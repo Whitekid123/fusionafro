@@ -15,11 +15,13 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.2]);
 
   const textVariants: any = {
-    hidden: { y: '100%', opacity: 0 },
+    hidden: { y: '120%', opacity: 0, rotateZ: 8, scale: 0.9 },
     visible: { 
       y: 0, 
       opacity: 1, 
-      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } 
+      rotateZ: 0,
+      scale: 1,
+      transition: { duration: 1.8, ease: [0.16, 1, 0.3, 1] } 
     }
   };
 

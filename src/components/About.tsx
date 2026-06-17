@@ -1,18 +1,29 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function About() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const y2 = useTransform(scrollYProgress, [0, 1], ["20%", "-50%"]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 1.2]);
+
   return (
-    <section id="about" className="bg-brand-dark py-32 md:py-48 overflow-hidden relative">
+    <section id="about" ref={containerRef} className="bg-brand-dark py-32 md:py-48 overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-6">
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           
           {/* Text Side - Clean and Legible */}
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="order-2 lg:order-1"
           >
             <h2 className="font-heading text-5xl md:text-7xl leading-tight text-white mb-10 uppercase tracking-tight">
@@ -38,33 +49,31 @@ export default function About() {
             </a>
           </motion.div>
 
-          {/* Image Grid Side - Structured and Elegant */}
+          {/* Image Grid Side - Crazy Parallax Motion */}
           <div className="order-1 lg:order-2 grid grid-cols-2 gap-6 relative">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
-              className="w-full h-[300px] md:h-[500px]"
+              style={{ y: y1, scale }}
+              className="w-full h-[300px] md:h-[500px] overflow-hidden rounded-sm"
             >
-              <img
+              <motion.img
+                whileHover={{ scale: 1.1, rotate: 2 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
                 src="/about-ambiance.png"
                 alt="Warm interior of Fusion Afro restaurant"
-                className="w-full h-full object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
+                className="w-full h-full object-cover grayscale hover:grayscale-0"
               />
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-full h-[300px] md:h-[500px] mt-12 md:mt-24"
+              style={{ y: y2 }}
+              className="w-full h-[300px] md:h-[500px] mt-12 md:mt-24 overflow-hidden rounded-sm"
             >
-              <img
+              <motion.img
+                whileHover={{ scale: 1.1, rotate: -2 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
                 src="/jollof-rice.png"
                 alt="Jollof rice"
-                className="w-full h-full object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
+                className="w-full h-full object-cover grayscale hover:grayscale-0"
               />
             </motion.div>
           </div>

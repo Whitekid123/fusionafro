@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { restaurant, navLinks } from '../data/restaurant';
 
 export default function Footer() {
@@ -6,11 +7,22 @@ export default function Footer() {
   return (
     <footer className="bg-brand-charcoal pt-32 pb-10 overflow-hidden relative">
       
-      {/* Massive Typographic Branding */}
+      {/* Massive Typographic Branding with Glowing Animation */}
       <div className="w-full flex justify-center items-center mb-24 px-6 select-none pointer-events-none">
-        <h1 className="font-heading text-[18vw] leading-[0.8] tracking-tighter text-white whitespace-nowrap opacity-10">
+        <motion.h1 
+          animate={{ 
+            textShadow: [
+              "0px 0px 20px rgba(193,255,114,0.0)", 
+              "0px 0px 100px rgba(193,255,114,0.6)", 
+              "0px 0px 20px rgba(193,255,114,0.0)"
+            ],
+            opacity: [0.1, 0.4, 0.1]
+          }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          className="font-heading text-[18vw] leading-[0.8] tracking-tighter text-brand-green whitespace-nowrap"
+        >
           FUSION AFRO
-        </h1>
+        </motion.h1>
       </div>
 
       <div className="max-w-7xl mx-auto px-6">
