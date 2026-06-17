@@ -26,7 +26,7 @@ export default function About() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="order-2 lg:order-1"
           >
-            <h2 className="font-heading text-5xl md:text-7xl leading-tight text-white mb-10 uppercase tracking-tight">
+            <h2 className="font-heading text-5xl md:text-7xl leading-tight text-white mb-12 uppercase tracking-wide">
               Our <span className="text-brand-green">Story</span>
             </h2>
             

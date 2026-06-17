@@ -35,7 +35,7 @@ export default function Testimonials() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="absolute inset-0 flex flex-col items-center justify-center"
             >
-              <h3 className="font-heading text-2xl md:text-4xl lg:text-5xl leading-tight text-white mb-10 italic font-light tracking-wide px-4">
+              <h3 className="font-heading text-2xl md:text-4xl lg:text-5xl leading-relaxed text-white mb-12 italic font-light tracking-wide px-4">
                 "{testimonials[index].text}"
               </h3>
               

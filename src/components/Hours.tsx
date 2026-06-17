@@ -25,7 +25,7 @@ export default function Hours() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1, duration: 1 }}
-              className="font-heading text-6xl md:text-8xl leading-[0.9] text-white uppercase tracking-tighter"
+              className="font-heading text-6xl md:text-8xl leading-tight text-white uppercase tracking-wide"
             >
               Visit<br/>
               <span className="text-brand-green ml-[10%]">Us</span>

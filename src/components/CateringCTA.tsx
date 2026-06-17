@@ -16,7 +16,7 @@ export default function CateringCTA() {
             <p className="text-brand-green font-semibold uppercase tracking-[0.4em] text-xs mb-6">
               Catering Service
             </p>
-            <h2 className="font-heading text-5xl md:text-7xl leading-tight text-white mb-8 uppercase tracking-tight">
+            <h2 className="font-heading text-5xl md:text-7xl leading-tight text-white mb-10 uppercase tracking-wide">
               Bring The <span className="text-brand-green">Feast</span>
             </h2>
             

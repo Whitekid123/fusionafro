@@ -19,7 +19,7 @@ export default function Footer() {
             opacity: [0.1, 0.4, 0.1]
           }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="font-heading text-[18vw] leading-[0.8] tracking-tighter text-brand-green whitespace-nowrap"
+          className="font-heading text-[16vw] md:text-[18vw] leading-none tracking-normal text-brand-green whitespace-nowrap"
         >
           FUSION AFRO
         </motion.h1>

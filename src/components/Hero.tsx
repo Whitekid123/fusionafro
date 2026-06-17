@@ -54,10 +54,10 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={containerVariants}
-          className="flex flex-col mb-12"
+          className="flex flex-col mb-16"
         >
           {/* Tagline */}
-          <div className="mb-6 ml-2">
+          <div className="mb-10 ml-2">
             <motion.p 
               variants={textVariants}
               className="text-brand-green font-semibold uppercase tracking-[0.4em] text-xs md:text-sm"
@@ -69,23 +69,23 @@ export default function Hero() {
           <div>
             <motion.h1 
               variants={textVariants}
-              className="font-heading text-[20vw] md:text-[14vw] leading-[0.85] text-brand-cream uppercase tracking-tighter"
+              className="font-heading text-[20vw] md:text-[14vw] leading-none text-brand-cream uppercase tracking-normal"
             >
               Fusion
             </motion.h1>
           </div>
-          <div className="md:ml-[10vw]">
+          <div className="md:ml-[10vw] mt-2 md:mt-4">
             <motion.h1 
               variants={textVariants}
-              className="font-heading text-[20vw] md:text-[14vw] leading-[0.85] text-brand-green uppercase tracking-tighter"
+              className="font-heading text-[20vw] md:text-[14vw] leading-none text-brand-green uppercase tracking-normal"
             >
               Afro
             </motion.h1>
           </div>
-          <div className="md:ml-[5vw] mt-4">
+          <div className="md:ml-[5vw] mt-8">
             <motion.h2 
               variants={textVariants}
-              className="font-heading text-[8vw] md:text-[4vw] leading-[1.1] text-brand-cream/80 italic"
+              className="font-heading text-[8vw] md:text-[4vw] leading-normal text-brand-cream/80 italic tracking-wide"
             >
               Caribbean Soul
             </motion.h2>
