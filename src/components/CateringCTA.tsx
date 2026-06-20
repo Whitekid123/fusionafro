@@ -9,8 +9,8 @@ const CateringCTA: React.FC = () => {
       style={{ backgroundColor: 'var(--color-cream-dark)', borderColor: 'rgba(30, 58, 32, 0.15)' }}
     >
       <div className="sketch-overlay" />
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
+      <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
 
           {/* Left: Text */}
           <motion.div

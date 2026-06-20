@@ -96,7 +96,7 @@ const Menu: React.FC = () => {
         </div>
 
         {/* Menu Items Grid */}
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto px-4">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeCategory + page}
