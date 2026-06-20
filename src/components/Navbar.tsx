@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { restaurant, navLinks } from '../data/restaurant';
+import { navLinks } from '../data/restaurant';
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled]   = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -22,17 +22,29 @@ export default function Navbar() {
       id="navbar"
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-brand-dark/95 backdrop-blur-md shadow-lg py-3'
-          : 'bg-transparent py-5'
+          ? 'shadow-xl py-3'
+          : 'py-4'
       }`}
+      style={{ backgroundColor: 'var(--color-forest)' }}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+
         {/* Logo */}
-        <a href="#home" className="flex items-center gap-2 group">
-          <span className="font-heading text-2xl md:text-3xl text-white tracking-tight">
-            {restaurant.name.split(' ')[0]}
-            <span className="text-brand-green"> {restaurant.name.split(' ')[1]}</span>
-          </span>
+        <a href="#home" className="flex items-center gap-3 group" aria-label="Fusion Afro Home">
+          <div className="flex flex-col leading-none">
+            <span
+              className="font-display text-2xl md:text-3xl tracking-widest"
+              style={{ color: 'var(--color-red)', letterSpacing: '0.12em' }}
+            >
+              FUSION
+            </span>
+            <span
+              className="font-body text-[9px] md:text-[10px] font-bold tracking-[0.25em] uppercase mt-0.5"
+              style={{ color: 'var(--color-gold)' }}
+            >
+              Afro Caribbean Restaurant
+            </span>
+          </div>
         </a>
 
         {/* Desktop Nav */}
@@ -41,17 +53,15 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-brand-text-muted hover:text-brand-green transition-colors duration-300 uppercase tracking-wider"
+              className="relative text-sm font-medium text-white/80 hover:text-white transition-colors duration-300 uppercase tracking-wider group"
             >
               {link.label}
+              <span className="absolute -bottom-1 left-0 w-0 h-[2px] group-hover:w-full transition-all duration-300"
+                    style={{ backgroundColor: 'var(--color-gold)' }} />
             </a>
           ))}
-          <a
-            href="#menu"
-            className="ml-2 relative overflow-hidden group px-6 py-2 border border-brand-green text-brand-green font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300"
-          >
-            <span className="relative z-10 group-hover:text-brand-dark transition-colors duration-300">Order Now</span>
-            <div className="absolute inset-0 bg-brand-green scale-y-0 origin-bottom group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
+          <a href="#menu" className="btn-stamp ml-3" id="navbar-order-btn">
+            Order Now
           </a>
         </nav>
 
@@ -62,6 +72,7 @@ export default function Navbar() {
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle mobile menu"
           aria-expanded={mobileOpen}
+          id="mobile-menu-toggle"
         >
           {mobileOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
@@ -69,9 +80,10 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       <div
-        className={`fixed inset-0 bg-brand-dark/98 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 transition-all duration-500 md:hidden ${
+        className={`fixed inset-0 z-40 flex flex-col items-center justify-center gap-10 transition-all duration-500 md:hidden ${
           mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
+        style={{ backgroundColor: 'var(--color-forest)' }}
       >
         <button
           type="button"
@@ -87,8 +99,8 @@ export default function Navbar() {
             key={link.href}
             href={link.href}
             onClick={() => setMobileOpen(false)}
-            className="text-2xl font-heading text-white hover:text-brand-green transition-colors duration-300"
-            style={{ transitionDelay: `${i * 0.05}s` }}
+            className="font-heading text-3xl text-white hover:text-gold transition-colors duration-300"
+            style={{ transitionDelay: `${i * 0.06}s` }}
           >
             {link.label}
           </a>
@@ -97,10 +109,9 @@ export default function Navbar() {
         <a
           href="#menu"
           onClick={() => setMobileOpen(false)}
-          className="mt-4 relative overflow-hidden group px-10 py-4 border border-brand-green text-brand-green font-bold text-sm uppercase tracking-[0.2em] transition-all duration-300"
+          className="btn-stamp mt-4"
         >
-          <span className="relative z-10 group-hover:text-brand-dark transition-colors duration-300">Order Now</span>
-          <div className="absolute inset-0 bg-brand-green scale-y-0 origin-bottom group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
+          Order Now
         </a>
       </div>
     </header>

@@ -1,137 +1,150 @@
-import { ChevronDown } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
-import heroImg from '../assets/hero-food.png';
+import { ChevronDown } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 export default function Hero() {
   const container = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: container,
-    offset: ['start start', 'end start'],
+    offset: ["start start", "end start"],
   });
 
-  // Parallax for the background
-  const y = useTransform(scrollYProgress, [0, 1], ['0vh', '50vh']);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.2]);
-
-  const textVariants: any = {
-    hidden: { y: '120%', opacity: 0, rotateZ: 4, scale: 0.95 },
-    visible: { 
-      y: 0, 
-      opacity: 1, 
-      rotateZ: 0,
-      scale: 1,
-      transition: { duration: 1.8, ease: [0.16, 1, 0.3, 1] } 
-    }
-  };
+  const y       = useTransform(scrollYProgress, [0, 1], ["0vh", "40vh"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.2]);
 
   const containerVariants = {
     hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.15, delayChildren: 0.3 }
-    }
+    visible: { transition: { staggerChildren: 0.18, delayChildren: 0.3 } },
+  };
+
+  const textVariants: any = {
+    hidden:  { y: "100%", opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] } },
   };
 
   return (
     <section
       id="home"
       ref={container}
-      className="relative min-h-screen flex items-center justify-start overflow-hidden pt-20 bg-brand-dark"
+      className="relative h-screen flex items-center justify-start overflow-hidden"
     >
-      {/* Background Image with Zoom and Parallax */}
-      <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
+      {/* Background Image with Parallax */}
+      <motion.div style={{ y }} className="absolute inset-0 z-0">
         <img
-          src={heroImg}
-          alt="Afro-Caribbean dishes spread on a dark table"
+          src="/hero-bg.png"
+          alt="Afro-Caribbean dishes spread"
           className="w-full h-full object-cover scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/80 to-brand-dark/20" />
+        {/* Dark gradient overlay for text readability */}
+        <div className="absolute inset-0"
+             style={{ background: 'linear-gradient(to right, rgba(20,40,22,0.82) 0%, rgba(20,40,22,0.65) 55%, rgba(20,40,22,0.30) 100%)' }} />
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 px-6 md:px-12 w-full max-w-7xl mx-auto flex flex-col justify-center h-full pt-10">
-        <motion.div 
+      <motion.div
+        style={{ opacity }}
+        className="relative z-10 px-8 md:px-16 w-full max-w-7xl mx-auto"
+      >
+        {/* Tagline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="font-body text-white/70 uppercase tracking-[0.4em] text-xs md:text-sm mb-5"
+        >
+          Dine In &bull; Take Away &bull; Catering Service
+        </motion.p>
+
+        {/* Main Headline — mixed serif + script */}
+        <motion.div
+          variants={containerVariants}
           initial="hidden"
           animate="visible"
-          variants={containerVariants}
-          className="flex flex-col mb-16"
+          className="overflow-hidden"
         >
-          {/* Tagline */}
-          <div className="mb-10 ml-2">
-            <motion.p 
+          <div className="overflow-hidden">
+            <motion.h1
               variants={textVariants}
-              className="text-brand-green font-semibold uppercase tracking-[0.4em] text-xs md:text-sm"
+              className="font-heading text-white leading-[1.05]"
+              style={{ fontSize: 'clamp(2.8rem, 7vw, 6rem)', fontWeight: 900 }}
             >
-              Restaurant &bull; Take Away &bull; Catering
-            </motion.p>
-          </div>
-
-          <div>
-            <motion.h1 
-              variants={textVariants}
-              className="font-heading text-[20vw] md:text-[14vw] leading-none text-brand-cream uppercase tracking-normal"
-            >
-              Fusion
+              Family
             </motion.h1>
           </div>
-          <div className="md:ml-[10vw] mt-2 md:mt-4">
-            <motion.h1 
+          <div className="overflow-hidden flex items-baseline gap-4 flex-wrap">
+            <motion.span
               variants={textVariants}
-              className="font-heading text-[20vw] md:text-[14vw] leading-none text-brand-green uppercase tracking-normal"
+              style={{
+                fontFamily: 'var(--font-script)',
+                fontSize:   'clamp(2.4rem, 6vw, 5rem)',
+                color:      'var(--color-gold)',
+                lineHeight: 1.1,
+              }}
             >
-              Afro
+              flavours
+            </motion.span>
+            <motion.h1
+              variants={textVariants}
+              className="font-heading text-white leading-[1.05]"
+              style={{ fontSize: 'clamp(2.8rem, 7vw, 6rem)', fontWeight: 900 }}
+            >
+              from
             </motion.h1>
           </div>
-          <div className="md:ml-[5vw] mt-8">
-            <motion.h2 
+          <div className="overflow-hidden">
+            <motion.h1
               variants={textVariants}
-              className="font-heading text-[8vw] md:text-[4vw] leading-normal text-brand-cream/80 italic tracking-wide"
+              className="font-heading leading-[1.05]"
+              style={{
+                fontSize:  'clamp(2.8rem, 7vw, 6rem)',
+                fontWeight: 900,
+                color:     'var(--color-red)',
+              }}
             >
-              Caribbean Soul
-            </motion.h2>
+              Africa
+            </motion.h1>
           </div>
         </motion.div>
 
-        {/* Description & CTAs */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10 border-t border-white/10 pt-8 w-full"
+          transition={{ delay: 1.2, duration: 0.9 }}
+          className="font-body text-white/75 text-base md:text-lg mt-5 mb-8 max-w-md leading-relaxed"
         >
-          <p className="text-brand-text-muted text-base md:text-lg max-w-md leading-relaxed">
-            A bold celebration of African and Caribbean flavours. Every dish tells a story of culture, community, and soul.
-          </p>
+          Bold, soulful West African &amp; Caribbean cooking — served with the warmth of home.
+        </motion.p>
 
-          <div className="flex flex-col sm:flex-row items-center gap-6 w-full md:w-auto">
-            <a
-              href="#menu"
-              className="relative overflow-hidden group w-full sm:w-auto text-center px-10 py-4 border border-brand-green text-brand-green font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300"
-            >
-              <span className="relative z-10 group-hover:text-brand-dark transition-colors duration-300">Explore Menu</span>
-              <div className="absolute inset-0 bg-brand-green scale-y-0 origin-bottom group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
-            </a>
-            <a
-              href="#catering"
-              className="relative overflow-hidden group w-full sm:w-auto text-center px-10 py-4 border border-white/20 text-white font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 hover:border-brand-red"
-            >
-              <span className="relative z-10 group-hover:text-brand-red transition-colors duration-300">Book Catering</span>
-              <div className="absolute inset-0 bg-white/5 scale-y-0 origin-bottom group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
-            </a>
-          </div>
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+          className="flex flex-col sm:flex-row gap-4"
+        >
+          <a href="#menu" className="btn-primary" id="hero-explore-btn">
+            Explore Our Menu
+          </a>
+          <a href="#catering" className="btn-secondary" id="hero-catering-btn">
+            Book Catering
+          </a>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Scroll Indicator */}
       <motion.a
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
+        transition={{ delay: 2.2, duration: 1 }}
         href="#about"
-        className="absolute bottom-12 right-12 z-10 text-white/50 hover:text-brand-green transition-colors uppercase text-xs tracking-[0.3em] flex items-center gap-2 group"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 group"
+        id="hero-scroll-indicator"
       >
-        <span className="hidden md:block group-hover:-translate-y-1 transition-transform">Scroll</span>
-        <ChevronDown size={24} className="animate-bounce" />
+        <span className="font-body text-white/50 uppercase text-[10px] tracking-[0.3em] group-hover:text-white transition-colors">
+          Scroll
+        </span>
+        <ChevronDown size={22} className="text-white/50 group-hover:text-white animate-bounce transition-colors" />
       </motion.a>
     </section>
   );

@@ -1,79 +1,103 @@
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
-export default function CateringCTA() {
+const CateringCTA: React.FC = () => {
   return (
-    <section id="catering" className="py-32 md:py-48 bg-brand-dark overflow-hidden relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          
-          <motion.div 
+    <section
+      id="catering"
+      className="py-48 md:py-72 overflow-hidden relative border-b border-dashed"
+      style={{ backgroundColor: 'var(--color-cream-dark)', borderColor: 'rgba(30, 58, 32, 0.15)' }}
+    >
+      <div className="sketch-overlay" />
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
+
+          {/* Left: Text */}
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col"
+            transition={{ duration: 0.9 }}
+            className="flex flex-col gap-8 text-center md:text-left"
           >
-            <p className="text-brand-green font-semibold uppercase tracking-[0.4em] text-xs mb-6">
+            <p className="font-body text-sm font-semibold uppercase tracking-[0.4em]"
+               style={{ color: 'var(--color-leaf)' }}>
               Catering Service
             </p>
-            <h2 className="font-heading text-5xl md:text-7xl leading-tight text-white mb-10 uppercase tracking-wide">
-              Bring The <span className="text-brand-green">Feast</span>
-            </h2>
-            
-            <p className="text-brand-text-muted text-lg md:text-xl leading-relaxed mb-8">
-              From intimate gatherings to grand celebrations, our catering service delivers the full Fusion Afro experience to your event.
-              Customised menus, professional service, and flavours your guests will never forget.
+
+            <div className="space-y-2">
+              <h2 className="font-heading font-black leading-tight"
+                  style={{ fontSize: 'clamp(2.8rem, 6vw, 4.5rem)', color: 'var(--color-forest)' }}>
+                Bring the
+              </h2>
+              <div className="flex items-baseline gap-4 flex-wrap justify-center md:justify-start">
+                <span style={{
+                  fontFamily: 'var(--font-script)',
+                  fontSize:   'clamp(2.5rem, 5.5vw, 4rem)',
+                  color:      'var(--color-gold)',
+                  lineHeight: 1.1,
+                }}>
+                  feast
+                </span>
+                <h2 className="font-heading font-black leading-tight"
+                    style={{ fontSize: 'clamp(2.8rem, 6vw, 4.5rem)', color: 'var(--color-forest)' }}>
+                  to you
+                </h2>
+              </div>
+            </div>
+
+            <p className="font-body text-base md:text-lg leading-relaxed max-w-lg mx-auto md:mx-0"
+               style={{ color: 'var(--color-muted)' }}>
+              From intimate gatherings to grand celebrations, our catering service delivers
+              the full Fusion Afro experience to your event. Customised menus, professional
+              service, and flavours your guests will never forget.
             </p>
-            
-            <ul className="space-y-4 mb-10 text-white font-medium">
-              <li className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 bg-brand-green rounded-full" />
-                Weddings, birthdays & corporate events
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 bg-brand-green rounded-full" />
-                Custom menus tailored to your taste
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 bg-brand-green rounded-full" />
-                Party platters from $35 &mdash; full spreads from $95
-              </li>
+
+            <ul className="space-y-4 max-w-md md:max-w-none mx-auto md:mx-0 text-left">
+              {[
+                'Weddings, birthdays & corporate events',
+                'Custom menus tailored to your taste',
+                'Party platters from $35 — full spreads from $95',
+                'Dine In · Take Away · Catering — all available',
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-4 font-body text-base"
+                    style={{ color: 'var(--color-charcoal-mid)' }}>
+                  <span className="mt-2 w-2 h-2 rounded-full shrink-0"
+                        style={{ backgroundColor: 'var(--color-gold)' }} />
+                  {item}
+                </li>
+              ))}
             </ul>
 
-            <div className="flex flex-col sm:flex-row items-center gap-6 w-full md:w-auto">
-              <a
-                href="#contact"
-                className="relative overflow-hidden group w-full sm:w-auto text-center px-10 py-4 border border-brand-green text-brand-green font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300"
-              >
-                <span className="relative z-10 group-hover:text-brand-dark transition-colors duration-300">Call to Book</span>
-                <div className="absolute inset-0 bg-brand-green scale-y-0 origin-bottom group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
+            <div className="flex flex-col sm:flex-row gap-5 mt-4 justify-center md:justify-start">
+              <a href="#contact" className="btn-primary" id="catering-book-btn">
+                Enquire to Book
               </a>
-              <a
-                href="#menu"
-                className="relative overflow-hidden group w-full sm:w-auto text-center px-10 py-4 border border-white/20 text-white font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 hover:border-brand-red"
-              >
-                <span className="relative z-10 group-hover:text-brand-red transition-colors duration-300">View Platters</span>
-                <div className="absolute inset-0 bg-white/5 scale-y-0 origin-bottom group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
+              <a href="#menu" className="btn-secondary" id="catering-menu-btn">
+                View Our Menu
               </a>
             </div>
           </motion.div>
 
-          <motion.div 
+          {/* Right: Image with stamp border */}
+          <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative h-[400px] lg:h-[600px] w-full"
+            transition={{ duration: 0.9 }}
+            className="stamp-border"
           >
             <img
               src="/catering-spread.png"
-              alt="Catering spread"
-              className="w-full h-full object-cover rounded-xl"
+              alt="Fusion Afro catering spread for events"
+              className="w-full h-80 md:h-[480px] object-cover"
             />
           </motion.div>
-        </div>
 
+        </div>
       </div>
     </section>
   );
-}
+};
+
+export default CateringCTA;

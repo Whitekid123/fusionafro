@@ -1,9 +1,9 @@
 export const restaurant = {
   name: 'Fusion Afro',
-  tagline: 'Caribbean Restaurant',
+  tagline: 'Afro Caribbean Restaurant',
   fullName: 'Fusion Afro Caribbean Restaurant',
   description:
-    'A blend of cultural richness with a clean, modern dining experience. We bring the bold, vibrant flavours of Africa and the Caribbean to your table.',
+    'A bold celebration of African and Caribbean flavours. We bring the soul of West Africa and the vibrant spice of the Caribbean to your table — cooked fresh, served with heart.',
   services: ['Dine In', 'Take Away', 'Catering Service'] as const,
   phone: '+1 (555) 123-4567',
   email: 'info@fusionafro.com',
@@ -53,13 +53,17 @@ export const testimonials: Testimonial[] = [
     text: 'A hidden gem! The egusi soup with fufu was perfection. The atmosphere is vibrant yet intimate — perfect for a Friday night out. We will definitely be back.',
     rating: 5,
   },
+  {
+    name: 'Marcus T.',
+    text: 'Best jerk chicken outside of Jamaica, no debate. The fusion approach is genius — you get Caribbean soul with West African warmth on every plate.',
+    rating: 5,
+  },
 ];
 
 export const navLinks = [
   { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
+  { label: 'Our Story', href: '#about' },
   { label: 'Menu', href: '#menu' },
   { label: 'Catering', href: '#catering' },
-  { label: 'Hours', href: '#hours' },
   { label: 'Contact', href: '#contact' },
 ];
