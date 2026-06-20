@@ -6,16 +6,35 @@ import type { MenuItem } from "../data/menu";
 
 const Menu: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>(menuCategories[0].id);
+  const [activeFilter, setActiveFilter] = useState<string>('all');
+  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [page, setPage] = useState(0);
   const ITEMS_PER_PAGE = 6;
 
   const activeCategoryData = menuCategories.find((c) => c.id === activeCategory);
   const allItems: MenuItem[] = activeCategoryData ? activeCategoryData.items : [];
-  const totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE);
-  const visibleItems = allItems.slice(page * ITEMS_PER_PAGE, (page + 1) * ITEMS_PER_PAGE);
+
+  // Filter items based on activeFilter
+  const filteredItems = allItems.filter(item => {
+    if (activeFilter === 'all') return true;
+    if (activeFilter === 'gf') return item.dietary?.includes('gf');
+    if (activeFilter === 'vegetarian') return item.dietary?.includes('vegetarian') || item.dietary?.includes('vegan');
+    if (activeFilter === 'vegan') return item.dietary?.includes('vegan');
+    if (activeFilter === 'spicy') return item.spice === 'medium' || item.spice === 'hot';
+    return true;
+  });
+
+  const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+  const visibleItems = filteredItems.slice(page * ITEMS_PER_PAGE, (page + 1) * ITEMS_PER_PAGE);
 
   const switchCategory = (id: string) => {
     setActiveCategory(id);
+    setActiveFilter('all');
+    setPage(0);
+  };
+
+  const switchFilter = (filter: string) => {
+    setActiveFilter(filter);
     setPage(0);
   };
 
@@ -68,7 +87,7 @@ const Menu: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-3 md:gap-5 mb-10"
+          className="flex flex-wrap justify-center gap-3 md:gap-5 mb-8"
         >
           {menuCategories.map((category) => (
             <button
@@ -87,6 +106,48 @@ const Menu: React.FC = () => {
           ))}
         </motion.div>
 
+        {/* Dietary / Tag Filters */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="flex flex-wrap justify-center gap-2 mb-10"
+        >
+          {[
+            { id: 'all', label: 'All Dishes' },
+            { id: 'gf', label: 'Gluten-Free' },
+            { id: 'vegetarian', label: 'Vegetarian & Vegan' },
+            { id: 'spicy', label: 'Spicy' }
+          ].map((filter) => {
+            // Check if activeCategory actually has items matching this filter
+            const hasItems = allItems.some(item => {
+              if (filter.id === 'all') return true;
+              if (filter.id === 'gf') return item.dietary?.includes('gf');
+              if (filter.id === 'vegetarian') return item.dietary?.includes('vegetarian') || item.dietary?.includes('vegan');
+              if (filter.id === 'spicy') return item.spice === 'medium' || item.spice === 'hot';
+              return false;
+            });
+
+            if (!hasItems) return null;
+
+            return (
+              <button
+                key={filter.id}
+                onClick={() => switchFilter(filter.id)}
+                className="text-[9px] md:text-[10px] font-body font-bold uppercase tracking-widest px-4 py-1.5 transition-all duration-300 cursor-pointer border rounded-full"
+                style={{
+                  color:           activeFilter === filter.id ? 'var(--color-gold)' : 'rgba(237, 232, 223, 0.6)',
+                  borderColor:     activeFilter === filter.id ? 'var(--color-gold)' : 'rgba(237, 232, 223, 0.15)',
+                  backgroundColor: activeFilter === filter.id ? 'rgba(212, 137, 26, 0.08)' : 'transparent',
+                }}
+              >
+                {filter.label}
+              </button>
+            );
+          })}
+        </motion.div>
+
         {/* Divider with category name */}
         <div className="divider-line-light mb-10 text-center">
           <span className="font-heading text-2xl md:text-3xl font-bold whitespace-nowrap px-6"
@@ -99,12 +160,12 @@ const Menu: React.FC = () => {
         <div className="max-w-4xl mx-auto px-4">
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeCategory + page}
+              key={activeCategory + activeFilter + page}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.35 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-x-16"
+              className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4"
             >
               {visibleItems.map((item, index) => (
                 <motion.div
@@ -112,30 +173,40 @@ const Menu: React.FC = () => {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.07 }}
-                  className="flex items-baseline justify-between py-7 px-2 group border-b"
-                  style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+                  className="flex flex-col items-center justify-center text-center py-8 px-4 group border-b cursor-pointer transition-all duration-300 hover:bg-white/3"
+                  style={{ borderColor: 'rgba(255,255,255,0.06)' }}
                   id={`menu-item-${item.name.toLowerCase().replace(/\s+/g, '-')}`}
+                  onClick={() => setSelectedItem(item)}
                 >
-                  <div className="flex-1 pr-8">
-                    <h3
-                      className="font-heading text-lg md:text-xl font-bold mb-2 transition-colors duration-300 group-hover:underline"
-                      style={{ color: 'var(--color-cream)', textDecorationColor: 'var(--color-gold)' }}
-                    >
-                      {item.name}
-                    </h3>
-                    <p className="font-body text-sm leading-relaxed line-clamp-2"
-                       style={{ color: 'var(--color-cream-dark)', opacity: 0.85 }}>
-                      {item.description}
-                    </p>
-                  </div>
-                  <div className="shrink-0">
-                    <span className="font-heading text-xl md:text-2xl font-bold"
-                          style={{ color: 'var(--color-gold-light)' }}>
-                      {item.price}
-                    </span>
-                  </div>
+                  {/* Name */}
+                  <h3
+                    className="font-heading text-lg md:text-xl font-bold mb-2 transition-colors duration-300 group-hover:text-gold-light"
+                    style={{ color: 'var(--color-cream)' }}
+                  >
+                    {item.name}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="font-body text-sm leading-relaxed max-w-md mb-4"
+                     style={{ color: 'var(--color-cream-dark)', opacity: 0.8 }}>
+                    {item.description}
+                  </p>
+
+                  {/* Price */}
+                  <span className="font-heading text-lg md:text-xl font-bold"
+                        style={{ color: 'var(--color-gold-light)' }}>
+                    {item.price}
+                  </span>
                 </motion.div>
               ))}
+
+              {visibleItems.length === 0 && (
+                <div className="col-span-full text-center py-12">
+                  <p className="font-body text-sm" style={{ color: 'var(--color-cream-dark)' }}>
+                    No items in this category match the selected filter.
+                  </p>
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
 
@@ -195,6 +266,78 @@ const Menu: React.FC = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Details Modal Popup */}
+      <AnimatePresence>
+        {selectedItem && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-lg overflow-hidden bg-forest border border-cream/20 shadow-2xl p-6 md:p-8 rounded-none"
+              style={{ backgroundColor: 'var(--color-forest)', borderColor: 'rgba(237, 232, 223, 0.2)' }}
+            >
+              {/* Close button */}
+              <button
+                onClick={() => setSelectedItem(null)}
+                className="absolute top-4 right-4 text-cream/70 hover:text-white transition-colors duration-200 cursor-pointer p-1"
+                aria-label="Close details"
+              >
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              {/* Title & Price */}
+              <div className="text-center mb-4 mt-4">
+                <h3 className="font-heading text-2xl md:text-3xl font-black text-cream mb-1">
+                  {selectedItem.name}
+                </h3>
+                <span className="font-heading text-xl font-bold text-gold-light" style={{ color: 'var(--color-gold-light)' }}>
+                  {selectedItem.price}
+                </span>
+              </div>
+
+              {/* Badges: Dietary & Spice */}
+              <div className="flex flex-wrap justify-center gap-2 mb-6">
+                {selectedItem.dietary?.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[9px] font-body font-bold uppercase tracking-wider px-2.5 py-1 border rounded-sm"
+                    style={{
+                      color: 'var(--color-gold)',
+                      borderColor: 'rgba(212, 137, 26, 0.4)',
+                      backgroundColor: 'rgba(212, 137, 26, 0.08)'
+                    }}
+                  >
+                    {tag === 'gf' ? 'Gluten-Free' : tag}
+                  </span>
+                ))}
+                {selectedItem.spice && selectedItem.spice !== 'none' && (
+                  <span
+                    className="text-[9px] font-body font-bold uppercase tracking-wider px-2.5 py-1 border rounded-sm"
+                    style={{
+                      color: 'var(--color-red)',
+                      borderColor: 'rgba(204, 32, 32, 0.4)',
+                      backgroundColor: 'rgba(204, 32, 32, 0.08)'
+                    }}
+                  >
+                    Spice: {selectedItem.spice === 'hot' ? '🔥🔥🔥 Hot' : selectedItem.spice === 'medium' ? '🔥🔥 Medium' : '🔥 Mild'}
+                  </span>
+                )}
+              </div>
+
+              {/* Cooking Story Details */}
+              <p className="font-body text-sm md:text-base leading-relaxed text-center"
+                 style={{ color: 'var(--color-cream-dark)' }}>
+                {selectedItem.details || selectedItem.description}
+              </p>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
