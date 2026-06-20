@@ -48,12 +48,12 @@ const Menu: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 flex flex-col items-center w-full">
         
         {/* Section Header */}
-        <div className="text-center w-full max-w-3xl mx-auto mb-12 md:mb-16">
+        <div className="text-center w-full max-w-3xl mx-auto mb-16 md:mb-24">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-body text-sm font-semibold uppercase tracking-[0.4em] mb-5 animate-on-scroll"
+            className="font-body text-sm font-semibold uppercase tracking-[0.4em] mb-6 animate-on-scroll"
             style={{ color: 'var(--color-gold)' }}
           >
             Browse through our offerings
@@ -64,7 +64,7 @@ const Menu: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="flex items-baseline justify-center gap-4 flex-wrap w-full"
+            className="flex items-center justify-center gap-5 md:gap-7 flex-wrap w-full"
           >
             <h2 className="font-heading leading-tight"
                 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', color: 'var(--color-cream)', fontWeight: 900 }}>
@@ -75,78 +75,83 @@ const Menu: React.FC = () => {
               fontSize:   'clamp(2.2rem, 5.5vw, 3.6rem)',
               color:      'var(--color-gold)',
               lineHeight: 1.1,
+              paddingTop: '0.2em'
             }}>
               menu
             </span>
           </motion.div>
         </div>
 
-        {/* Category Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-3 md:gap-5 mb-6 w-full"
-        >
-          {menuCategories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => switchCategory(category.id)}
-              id={`menu-tab-${category.id}`}
-              className="relative font-body font-bold text-xs md:text-sm uppercase tracking-[0.15em] px-6 py-2.5 transition-all duration-300 rounded-none cursor-pointer"
-              style={{
-                color:            activeCategory === category.id ? 'var(--color-forest)' : 'var(--color-cream)',
-                backgroundColor:  activeCategory === category.id ? 'var(--color-cream)' : 'transparent',
-                border:           activeCategory === category.id ? '2px solid var(--color-cream)' : '2px solid rgba(237, 232, 223, 0.3)',
-              }}
-            >
-              {category.label}
-            </button>
-          ))}
-        </motion.div>
-
-        {/* Dietary / Tag Filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="flex flex-wrap justify-center gap-2 mb-12 w-full"
-        >
-          {[
-            { id: 'all', label: 'All Dishes' },
-            { id: 'gf', label: 'Gluten-Free' },
-            { id: 'vegetarian', label: 'Vegetarian & Vegan' },
-            { id: 'spicy', label: 'Spicy' }
-          ].map((filter) => {
-            // Check if activeCategory actually has items matching this filter
-            const hasItems = allItems.some(item => {
-              if (filter.id === 'all') return true;
-              if (filter.id === 'gf') return item.dietary?.includes('gf');
-              if (filter.id === 'vegetarian') return item.dietary?.includes('vegetarian') || item.dietary?.includes('vegan');
-              if (filter.id === 'spicy') return item.spice === 'medium' || item.spice === 'hot';
-              return false;
-            });
-
-            if (!hasItems) return null;
-
-            return (
+        {/* Category Tabs & Filters Container */}
+        <div className="max-w-4xl mx-auto w-full flex flex-col items-center gap-12 md:gap-16 mb-24">
+          
+          {/* Category Tabs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-wrap justify-center gap-5 md:gap-8 w-full"
+          >
+            {menuCategories.map((category) => (
               <button
-                key={filter.id}
-                onClick={() => switchFilter(filter.id)}
-                className="text-[9px] md:text-[10px] font-body font-bold uppercase tracking-widest px-4 py-1.5 transition-all duration-300 cursor-pointer border rounded-full"
+                key={category.id}
+                onClick={() => switchCategory(category.id)}
+                id={`menu-tab-${category.id}`}
+                className="relative font-body font-bold text-xs md:text-sm uppercase tracking-[0.2em] px-8 py-3.5 md:px-10 md:py-4 transition-all duration-300 rounded-none cursor-pointer"
                 style={{
-                  color:           activeFilter === filter.id ? 'var(--color-gold)' : 'rgba(237, 232, 223, 0.6)',
-                  borderColor:     activeFilter === filter.id ? 'var(--color-gold)' : 'rgba(237, 232, 223, 0.15)',
-                  backgroundColor: activeFilter === filter.id ? 'rgba(212, 137, 26, 0.08)' : 'transparent',
+                  color:            activeCategory === category.id ? 'var(--color-forest)' : 'var(--color-cream)',
+                  backgroundColor:  activeCategory === category.id ? 'var(--color-cream)' : 'transparent',
+                  border:           activeCategory === category.id ? '2px solid var(--color-cream)' : '2px solid rgba(237, 232, 223, 0.3)',
                 }}
               >
-                {filter.label}
+                {category.label}
               </button>
-            );
-          })}
-        </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Dietary / Tag Filters */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="flex flex-wrap justify-center gap-4 md:gap-6 w-full"
+          >
+            {[
+              { id: 'all', label: 'All Dishes' },
+              { id: 'gf', label: 'Gluten-Free' },
+              { id: 'vegetarian', label: 'Vegetarian & Vegan' },
+              { id: 'spicy', label: 'Spicy' }
+            ].map((filter) => {
+              // Check if activeCategory actually has items matching this filter
+              const hasItems = allItems.some(item => {
+                if (filter.id === 'all') return true;
+                if (filter.id === 'gf') return item.dietary?.includes('gf');
+                if (filter.id === 'vegetarian') return item.dietary?.includes('vegetarian') || item.dietary?.includes('vegan');
+                if (filter.id === 'spicy') return item.spice === 'medium' || item.spice === 'hot';
+                return false;
+              });
+
+              if (!hasItems) return null;
+
+              return (
+                <button
+                  key={filter.id}
+                  onClick={() => switchFilter(filter.id)}
+                  className="text-[10px] md:text-xs font-body font-bold uppercase tracking-[0.2em] px-6 py-2.5 md:px-8 md:py-3.5 transition-all duration-300 cursor-pointer border rounded-full"
+                  style={{
+                    color:           activeFilter === filter.id ? 'var(--color-gold)' : 'rgba(237, 232, 223, 0.6)',
+                    borderColor:     activeFilter === filter.id ? 'var(--color-gold)' : 'rgba(237, 232, 223, 0.15)',
+                    backgroundColor: activeFilter === filter.id ? 'rgba(212, 137, 26, 0.08)' : 'transparent',
+                  }}
+                >
+                  {filter.label}
+                </button>
+              );
+            })}
+          </motion.div>
+        </div>
 
         {/* Divider with category name */}
         <div className="divider-line-light mb-10 text-center w-full">
