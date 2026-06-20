@@ -45,15 +45,15 @@ const Menu: React.FC = () => {
       style={{ backgroundColor: 'var(--color-forest)', borderColor: 'rgba(237, 232, 223, 0.15)' }}
     >
       <div className="sketch-overlay" />
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 flex flex-col items-center w-full">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+        <div className="text-center w-full max-w-3xl mx-auto mb-12 md:mb-16">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-body text-sm font-semibold uppercase tracking-[0.4em] mb-5"
+            className="font-body text-sm font-semibold uppercase tracking-[0.4em] mb-5 animate-on-scroll"
             style={{ color: 'var(--color-gold)' }}
           >
             Browse through our offerings
@@ -64,7 +64,7 @@ const Menu: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="flex items-baseline justify-center gap-4 flex-wrap"
+            className="flex items-baseline justify-center gap-4 flex-wrap w-full"
           >
             <h2 className="font-heading leading-tight"
                 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', color: 'var(--color-cream)', fontWeight: 900 }}>
@@ -87,7 +87,7 @@ const Menu: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-3 md:gap-5 mb-8"
+          className="flex flex-wrap justify-center gap-3 md:gap-5 mb-6 w-full"
         >
           {menuCategories.map((category) => (
             <button
@@ -112,7 +112,7 @@ const Menu: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="flex flex-wrap justify-center gap-2 mb-10"
+          className="flex flex-wrap justify-center gap-2 mb-12 w-full"
         >
           {[
             { id: 'all', label: 'All Dishes' },
@@ -149,7 +149,7 @@ const Menu: React.FC = () => {
         </motion.div>
 
         {/* Divider with category name */}
-        <div className="divider-line-light mb-10 text-center">
+        <div className="divider-line-light mb-10 text-center w-full">
           <span className="font-heading text-2xl md:text-3xl font-bold whitespace-nowrap px-6"
                 style={{ color: 'var(--color-cream)' }}>
             {activeCategoryData?.label}
@@ -157,7 +157,7 @@ const Menu: React.FC = () => {
         </div>
 
         {/* Menu Items Grid */}
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="w-full max-w-4xl mx-auto px-4">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeCategory + activeFilter + page}
@@ -165,7 +165,7 @@ const Menu: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.35 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4"
+              className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 w-full"
             >
               {visibleItems.map((item, index) => (
                 <motion.div
@@ -212,7 +212,7 @@ const Menu: React.FC = () => {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-5 mt-12">
+            <div className="flex items-center justify-center gap-5 mt-12 w-full">
               <button
                 onClick={() => setPage((p) => Math.max(0, p - 1))}
                 disabled={page === 0}
@@ -255,7 +255,7 @@ const Menu: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-5 mt-16"
+            className="flex flex-wrap justify-center gap-5 mt-16 w-full"
           >
             <a href="#contact" className="btn-secondary" id="menu-full-cta">
               View Full Menu
