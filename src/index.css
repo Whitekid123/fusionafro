@@ -287,14 +287,14 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Force Spacious Section Padding ── */
 main > section:not(#home) {
-  padding-top: 100px !important;
-  padding-bottom: 100px !important;
+  padding-top: 60px !important;
+  padding-bottom: 60px !important;
 }
 
 @media (min-width: 768px) {
   main > section:not(#home) {
-    padding-top: 140px !important;
-    padding-bottom: 140px !important;
+    padding-top: 90px !important;
+    padding-bottom: 90px !important;
   }
 }
 

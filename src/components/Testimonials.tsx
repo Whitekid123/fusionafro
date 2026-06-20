@@ -38,7 +38,7 @@ export default function Testimonials() {
           What Our Guests Say
         </motion.p>
 
-        <div className="relative min-h-[220px] md:min-h-[260px]">
+        <div className="relative overflow-hidden flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
@@ -46,9 +46,9 @@ export default function Testimonials() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-0 flex flex-col items-center justify-center gap-8"
+              className="flex flex-col items-center justify-center gap-8 py-6 w-full"
             >
-              <p className="font-heading text-xl md:text-2xl lg:text-3xl leading-relaxed text-forest italic font-normal px-4"
+              <p className="font-heading text-xl md:text-2xl lg:text-3xl leading-relaxed text-forest italic font-normal px-6 max-w-3xl mx-auto"
                  style={{ color: 'var(--color-forest)' }}>
                 &ldquo;{testimonials[index].text}&rdquo;
               </p>
